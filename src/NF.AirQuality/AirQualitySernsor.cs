@@ -1,6 +1,11 @@
-﻿using System.Device.I2c;
+﻿
+using GHIElectronics.TinyCLR.Devices.I2c;
+using GHIElectronics.TinyCLR.Pins;
+using System;
+using System.Diagnostics;
+using System.Threading;
 
-namespace DFRobot.AirQuality
+namespace NF.AirQuality
 {
     public class AirQualitySensor
     {
@@ -21,10 +26,13 @@ namespace DFRobot.AirQuality
 
         private I2cDevice i2cDevice;
 
-        public AirQualitySensor(byte address, int bus = 1)
+        public AirQualitySensor(byte address, string I2CBus= SC13048.I2cBus.I2c1)
         {
-            var i2cConnectionSettings = new I2cConnectionSettings(bus, address);
-            i2cDevice = I2cDevice.Create(i2cConnectionSettings);
+            var settings = new I2cConnectionSettings(address,I2cMode.Master);//100_000 //The slave's address and the bus speed.
+            var controller = I2cController.FromName(I2CBus);
+            i2cDevice = controller.GetDevice(settings);
+
+           
         }
 
         public int GainParticleConcentrationUgM3(byte PMtype)
@@ -66,16 +74,16 @@ namespace DFRobot.AirQuality
                 try
                 {
                     //i2cDevice.Write(reg, data);
-                    var regdata = new List<byte>();
-                    regdata.Add(reg);
-                    regdata.AddRange(data);
+                    var regdata = new byte[data.Length+1];
+                    regdata[0] = (reg);
+                    Array.Copy(data,0,regdata,1,data.Length);
                     //i2cDevice.Write(reg, data);
-                    i2cDevice.Write(regdata.ToArray());
+                    i2cDevice.Write(regdata);
                     return;
                 }
                 catch
                 {
-                    Console.WriteLine("Please check connection!");
+                    Debug.WriteLine("Please check connection!");
                     Thread.Sleep(1000);
                 }
             }
@@ -86,15 +94,15 @@ namespace DFRobot.AirQuality
             byte[] buffer = new byte[length];
             try
             {
-
+                
                 //i2cDevice.Read(reg, buffer);
-                i2cDevice.WriteRead(new byte[] { reg }, buffer);
+                i2cDevice.WriteRead(new byte []{ reg }, buffer);
 
             }
             catch
             {
                 buffer[0] = 0xFF;
-                if (length > 1)
+                if(length>1)
                     buffer[1] = 0xFF;
             }
             return buffer;
