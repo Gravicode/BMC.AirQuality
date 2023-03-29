@@ -1,8 +1,8 @@
 using Avalonia.Controls;
-using LiveChartsCore.SkiaSharpView.Painting;
-using LiveChartsCore.SkiaSharpView.VisualElements;
-using LiveChartsCore.SkiaSharpView;
-using LiveChartsCore;
+//using LiveChartsCore.SkiaSharpView.Painting;
+//using LiveChartsCore.SkiaSharpView.VisualElements;
+//using LiveChartsCore.SkiaSharpView;
+//using LiveChartsCore;
 using SkiaSharp;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.Generic;
@@ -45,14 +45,14 @@ namespace AirQualityApp
         {
             this.sensor = sensor;
         }
-        public ISeries[] Series { get; set; } =
-        {
-        new LineSeries<double>
-        {
-            Values = new double[] { 2, 1, 3, 5, 3, 4, 6 },
-            Fill = null
-        }
-        };
+        //public ISeries[] Series { get; set; } =
+        //{
+        //new LineSeries<double>
+        //{
+        //    Values = new double[] { 2, 1, 3, 5, 3, 4, 6 },
+        //    Fill = null
+        //}
+        //};
         public void OnStartCommand() {
             sensor.Start();
         }
@@ -63,33 +63,33 @@ namespace AirQualityApp
         public void Refresh()
         {
             if (!sensor.IsDataAvailable()) return;
-            var series = new List<LineSeries<int>>();
-            series.Add(new LineSeries<int>
-            {
-                Values = sensor.GetData().Select(x => x.PM1).TakeLast(10).ToArray(),
-                Fill = null
-            });
-            series.Add(new LineSeries<int>
-            {
-                Values = sensor.GetData().Select(x => x.PM25).TakeLast(10).ToArray(),
-                Fill = null
-            });
-            series.Add(new LineSeries<int>
-            {
-                Values = sensor.GetData().Select(x => x.PM10).TakeLast(10).ToArray(),
-                Fill = null
-            });
-            Series = series.ToArray();
+            //var series = new List<LineSeries<int>>();
+            //series.Add(new LineSeries<int>
+            //{
+            //    Values = sensor.GetData().Select(x => x.PM1).TakeLast(10).ToArray(),
+            //    Fill = null
+            //});
+            //series.Add(new LineSeries<int>
+            //{
+            //    Values = sensor.GetData().Select(x => x.PM25).TakeLast(10).ToArray(),
+            //    Fill = null
+            //});
+            //series.Add(new LineSeries<int>
+            //{
+            //    Values = sensor.GetData().Select(x => x.PM10).TakeLast(10).ToArray(),
+            //    Fill = null
+            //});
+            //Series = series.ToArray();
             Desc = $"PM1: {sensor.Current.PM1}, PM2.5: {sensor.Current.PM25}, PM10: {sensor.Current.PM10}";
         }
 
-        public LabelVisual Title { get; set; } =
-            new LabelVisual
-            {
-                Text = "PM 1, 2.5, 10",
-                TextSize = 25,
-                Padding = new LiveChartsCore.Drawing.Padding(15),
-                Paint = new SolidColorPaint(SKColors.DarkSlateGray)
-            };
+        //public LabelVisual Title { get; set; } =
+        //    new LabelVisual
+        //    {
+        //        Text = "PM 1, 2.5, 10",
+        //        TextSize = 25,
+        //        Padding = new LiveChartsCore.Drawing.Padding(15),
+        //        Paint = new SolidColorPaint(SKColors.DarkSlateGray)
+        //    };
     }
 }
