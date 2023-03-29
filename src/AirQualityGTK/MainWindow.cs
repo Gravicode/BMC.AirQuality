@@ -6,6 +6,8 @@ namespace AirQualityGTK
 {
     class MainWindow : Window
     {
+        SensorAQ sensor;
+
         [UI] private Label _label1 = null;
         [UI] private Button _button1 = null;
 
@@ -16,9 +18,13 @@ namespace AirQualityGTK
         private MainWindow(Builder builder) : base(builder.GetRawOwnedObject("MainWindow"))
         {
             builder.Autoconnect(this);
-
+            
             DeleteEvent += Window_DeleteEvent;
             _button1.Clicked += Button1_Clicked;
+            sensor = new SensorAQ();
+            sensor.DataReceived+= (a, e) => {
+                _label1.Text = $"Data: {e.Data}";
+            };
         }
 
         private void Window_DeleteEvent(object sender, DeleteEventArgs a)

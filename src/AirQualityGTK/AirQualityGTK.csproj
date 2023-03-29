@@ -16,4 +16,8 @@
     <PackageReference Include="GtkSharp" Version="3.24.24.*" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DFRobot.AirQuality\DFRobot.AirQuality.csproj" />
+  </ItemGroup>
+
 </Project>
