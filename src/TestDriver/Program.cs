@@ -46,6 +46,7 @@ namespace TestDriver
              * @n     PARTICLENUM_10_UM_EVERY0_1L_AIR
              * @n     PARTICLENUM_GAIN_VERSION
              */
+            Console.WriteLine($"-- Measure date: {DateTime.Now.ToString("dd/MMM/yyyy HH:mm:ss")} --");
             num = airqualitysensor.GainParticlenumEvery0_1L(AirQualitySensor.PARTICLENUM_0_3_UM_EVERY0_1L_AIR);
             Console.WriteLine("The number of particles with a diameter of 0.3um per 0.1 in lift-off is: " + num);
             num2 = airqualitysensor.GainParticlenumEvery0_1L(AirQualitySensor.PARTICLENUM_0_5_UM_EVERY0_1L_AIR);
