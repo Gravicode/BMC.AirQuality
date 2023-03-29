@@ -1,4 +1,5 @@
 ﻿using DFRobot.AirQuality;
+using System.Diagnostics;
 
 namespace TestDriver
 {
@@ -25,7 +26,8 @@ namespace TestDriver
             Console.WriteLine("version is : " + version);
             Thread.Sleep(1000);
         }
-
+        static int num, num2;
+        static int concentration1, concentration25, concentration10;
         static void Loop()
         {
             /*
@@ -44,11 +46,17 @@ namespace TestDriver
              * @n     PARTICLENUM_10_UM_EVERY0_1L_AIR
              * @n     PARTICLENUM_GAIN_VERSION
              */
-            var num = airqualitysensor.GainParticlenumEvery0_1L(AirQualitySensor.PARTICLENUM_0_3_UM_EVERY0_1L_AIR);
+            num = airqualitysensor.GainParticlenumEvery0_1L(AirQualitySensor.PARTICLENUM_0_3_UM_EVERY0_1L_AIR);
             Console.WriteLine("The number of particles with a diameter of 0.3um per 0.1 in lift-off is: " + num);
+            num2 = airqualitysensor.GainParticlenumEvery0_1L(AirQualitySensor.PARTICLENUM_0_5_UM_EVERY0_1L_AIR);
+            Console.WriteLine("The number of particles with a diameter of 0.5um per 0.1 in lift-off is: " + num2);
 
-            var concentration = airqualitysensor.GainParticleConcentrationUgM3(AirQualitySensor.PARTICLE_PM1_0_STANDARD);
-            Console.WriteLine("PM1.0 concentration: " + concentration.ToString("F2") + " mg/m³");
+            concentration1 = airqualitysensor.GainParticleConcentrationUgM3(AirQualitySensor.PARTICLE_PM1_0_STANDARD);
+            concentration25 = airqualitysensor.GainParticleConcentrationUgM3(AirQualitySensor.PARTICLE_PM2_5_STANDARD);
+            concentration10 = airqualitysensor.GainParticleConcentrationUgM3(AirQualitySensor.PARTICLE_PM10_STANDARD);
+            Debug.WriteLine("PM1.0 concentration: " + concentration1.ToString("F2") + " mg/m³");
+            Debug.WriteLine("PM2.5 concentration: " + concentration25.ToString("F2") + " mg/m³");
+            Debug.WriteLine("PM10 concentration: " + concentration10.ToString("F2") + " mg/m³");
             Thread.Sleep(1000);
 
             /*
