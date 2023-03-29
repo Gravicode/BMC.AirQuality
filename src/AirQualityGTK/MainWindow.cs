@@ -10,6 +10,8 @@ namespace AirQualityGTK
 
         [UI] private Label _label1 = null;
         [UI] private Button _button1 = null;
+        [UI] private Button _btnstart = null;
+        [UI] private Button _btnstop = null;
 
         private int _counter;
 
@@ -18,12 +20,17 @@ namespace AirQualityGTK
         private MainWindow(Builder builder) : base(builder.GetRawOwnedObject("MainWindow"))
         {
             builder.Autoconnect(this);
-            
+            sensor = new SensorAQ();
+            sensor.DataReceived += (a, e) => {
+                _label1.Text = $"Data: {e.Data}";
+            };
             DeleteEvent += Window_DeleteEvent;
             _button1.Clicked += Button1_Clicked;
-            sensor = new SensorAQ();
-            sensor.DataReceived+= (a, e) => {
-                _label1.Text = $"Data: {e.Data}";
+            _btnstart.Clicked += (a,b)=>{
+                sensor.Start();
+            };
+            _btnstop.Clicked += (a, b) => {
+                sensor.Stop();
             };
         }
 
@@ -35,6 +42,7 @@ namespace AirQualityGTK
         private void Button1_Clicked(object sender, EventArgs a)
         {
             _counter++;
+            sensor.Start();
             _label1.Text = "Hello World! This button has been clicked " + _counter + " time(s).";
         }
     }
