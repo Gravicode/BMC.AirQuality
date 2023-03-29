@@ -54,9 +54,9 @@ namespace TestDriver
             concentration1 = airqualitysensor.GainParticleConcentrationUgM3(AirQualitySensor.PARTICLE_PM1_0_STANDARD);
             concentration25 = airqualitysensor.GainParticleConcentrationUgM3(AirQualitySensor.PARTICLE_PM2_5_STANDARD);
             concentration10 = airqualitysensor.GainParticleConcentrationUgM3(AirQualitySensor.PARTICLE_PM10_STANDARD);
-            Debug.WriteLine("PM1.0 concentration: " + concentration1.ToString("F2") + " mg/m³");
-            Debug.WriteLine("PM2.5 concentration: " + concentration25.ToString("F2") + " mg/m³");
-            Debug.WriteLine("PM10 concentration: " + concentration10.ToString("F2") + " mg/m³");
+            Console.WriteLine("PM1.0 concentration: " + concentration1.ToString("F2") + " mg/m³");
+            Console.WriteLine("PM2.5 concentration: " + concentration25.ToString("F2") + " mg/m³");
+            Console.WriteLine("PM10 concentration: " + concentration10.ToString("F2") + " mg/m³");
             Thread.Sleep(1000);
 
             /*
