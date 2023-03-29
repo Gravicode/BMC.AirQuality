@@ -127,15 +127,16 @@ namespace AirQualityGTK
         public int PM1 { get; set; }
         public int PM10 { get; set; }
         public int PM25 { get; set; }
-    }
-
-    public class SensorArgs:EventArgs
-    {
-        public AirSensorData Data { get; set; }
         public override string ToString()
         {
             var Desc = $"[{Data.MeasureTime}] - PM1: {Data.PM1}, PM2.5: {Data.PM25}, PM10: {Data.PM10}";
             return Desc;
         }
+    }
+
+    public class SensorArgs:EventArgs
+    {
+        public AirSensorData Data { get; set; }
+        
     }
 }

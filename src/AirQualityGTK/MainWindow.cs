@@ -42,7 +42,7 @@ namespace AirQualityGTK
         private void Button1_Clicked(object sender, EventArgs a)
         {
             _counter++;
-            sensor.Start();
+            
             _label1.Text = "Hello World! This button has been clicked " + _counter + " time(s).";
         }
     }
