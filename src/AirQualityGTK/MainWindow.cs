@@ -22,7 +22,7 @@ namespace AirQualityGTK
             builder.Autoconnect(this);
             sensor = new SensorAQ();
             sensor.DataReceived += (a, e) => {
-                _label1.Text = $"Data: {e.Data}";
+                _label1.Text = $"Data: {e.Data.ToString()}";
             };
             DeleteEvent += Window_DeleteEvent;
             _button1.Clicked += Button1_Clicked;

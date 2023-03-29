@@ -129,7 +129,7 @@ namespace AirQualityGTK
         public int PM25 { get; set; }
         public override string ToString()
         {
-            var Desc = $"[{Data.MeasureTime}] - PM1: {Data.PM1}, PM2.5: {Data.PM25}, PM10: {Data.PM10}";
+            var Desc = $"[{MeasureTime}] - PM1: {PM1}, PM2.5: {PM25}, PM10: {PM10}";
             return Desc;
         }
     }
