@@ -39,6 +39,8 @@ namespace AirQualityApp
     public partial class SensorVM
     {
         SensorAQ sensor;
+
+        public string Desc { get; set; } = string.Empty;
         public SensorVM(SensorAQ sensor)
         {
             this.sensor = sensor;
@@ -78,6 +80,7 @@ namespace AirQualityApp
                 Fill = null
             });
             Series = series.ToArray();
+            Desc = $"PM1: {sensor.Current.PM1}, PM2.5: {sensor.Current.PM25}, PM10: {sensor.Current.PM10}";
         }
 
         public LabelVisual Title { get; set; } =

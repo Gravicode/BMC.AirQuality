@@ -30,6 +30,14 @@ namespace AirQualityApp
                airqualitysensor = new AirQualitySensor(I2C_ADDRESS);
             Setup();
         }
+
+        public AirSensorData Current
+        {
+            get
+            {
+                return sensorData;
+            }
+        }
        public List<AirSensorData> GetData()
         {
             return TimeSeriesData;
