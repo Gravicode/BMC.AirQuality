@@ -1,5 +1,8 @@
 using System;
 using Gtk;
+using OxyPlot;
+using OxyPlot.GtkSharp;
+using OxyPlot.Series;
 using UI = Gtk.Builder.ObjectAttribute;
 
 namespace AirQualityGTK
@@ -12,6 +15,7 @@ namespace AirQualityGTK
         [UI] private Button _button1 = null;
         [UI] private Button _btnstart = null;
         [UI] private Button _btnstop = null;
+        [UI] private Box _box1 = null;
 
         private int _counter;
 
@@ -32,6 +36,19 @@ namespace AirQualityGTK
             _btnstop.Clicked += (a, b) => {
                 sensor.Stop();
             };
+            var plotView = new PlotView();
+            
+            _box1.Add(plotView);
+
+            var myModel = new PlotModel { Title = "Example 1" };
+            myModel.Series.Add(new FunctionSeries(Math.Cos, 0, 10, 0.1, "cos(x)"));
+            plotView.Model = myModel;
+        }
+
+        protected void OnDeleteEvent(object sender, DeleteEventArgs a)
+        {
+            Application.Quit();
+            a.RetVal = true;
         }
 
         private void Window_DeleteEvent(object sender, DeleteEventArgs a)
