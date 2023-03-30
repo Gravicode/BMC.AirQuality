@@ -39,15 +39,15 @@ namespace AirQualityGTK
             _box1.PackStart(plotPM,true,true,0);
             _box1.PackStart(plotParticle, true,true,0);
 
-            PM1Series = new LineSeries() { MarkerType = MarkerType.Circle, InterpolationAlgorithm = new CanonicalSpline(10) };
+            PM1Series = new LineSeries() { MarkerType = MarkerType.Circle };
             PM1Series.Title = "PM1";
             PM1Series.Points.Add(new DataPoint(0, 0));
 
-            PM25Series = new LineSeries() { MarkerType = MarkerType.Circle, InterpolationAlgorithm = new CanonicalSpline(10) };
+            PM25Series = new LineSeries() { MarkerType = MarkerType.Circle };
             PM25Series.Title = "PM25";
             PM25Series.Points.Add(new DataPoint(0, 0));
 
-            PM10Series = new LineSeries() { MarkerType = MarkerType.Circle, InterpolationAlgorithm = new CanonicalSpline(10) };
+            PM10Series = new LineSeries() { MarkerType = MarkerType.Circle };
             PM10Series.Title = "PM10";
             PM10Series.Points.Add(new DataPoint(0, 0));
 
@@ -59,11 +59,11 @@ namespace AirQualityGTK
             plotPM.Model = modelPM;
             plotPM.Show();
 
-            ParticleSeries03 = new LineSeries() { MarkerType = MarkerType.Diamond, InterpolationAlgorithm = new CanonicalSpline(10) };
+            ParticleSeries03 = new LineSeries() { MarkerType = MarkerType.Diamond };
             ParticleSeries03.Title = "Particle 0.3";
             ParticleSeries03.Points.Add(new DataPoint(0, 0));
 
-            ParticleSeries05 = new LineSeries() { MarkerType = MarkerType.Diamond, InterpolationAlgorithm = new CanonicalSpline(10) };
+            ParticleSeries05 = new LineSeries() { MarkerType = MarkerType.Diamond };
             ParticleSeries05.Title = "Particle 0.5";
             ParticleSeries05.Points.Add(new DataPoint(0, 0));
             
