@@ -114,7 +114,7 @@ namespace AirQualityGTK
         }
         static void Setup()
         {
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
             // Get firmware version
             Version = airqualitysensor.GainVersion();
             Console.WriteLine("version is : " + Version);
