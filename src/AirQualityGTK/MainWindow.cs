@@ -95,10 +95,11 @@ namespace AirQualityGTK
                         count++;
                     }
                     _label1.Text = $"Last Update: {DateTime.Now}";
-                    modelParticle.Series.Clear();
-                    modelParticle.Series.Add(ParticleSeries03);
-                    modelParticle.Series.Add(ParticleSeries05);
-                    plotParticle.Model = modelParticle;
+                    //modelParticle.Series.Clear();
+                    //modelParticle.Series.Add(ParticleSeries03);
+                    //modelParticle.Series.Add(ParticleSeries05);
+                    //plotParticle.Model = modelParticle;
+                    plotParticle.InvalidatePlot(true);
                 });
             };
         }
