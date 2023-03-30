@@ -37,8 +37,8 @@ namespace AirQualityGTK
                 sensor.Stop();
             };
             var plotView = new PlotView();
-            
-            _box1.Add(plotView);
+          
+            _box1.PackStart(plotView,true,true,0);
 
             var myModel = new PlotModel { Title = "Example 1" };
             myModel.Series.Add(new FunctionSeries(Math.Cos, 0, 10, 0.1, "cos(x)"));
