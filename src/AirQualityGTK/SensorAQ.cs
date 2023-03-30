@@ -102,7 +102,7 @@ namespace AirQualityGTK
                 airQualityLevel = "Hazardous";
             }
 
-            return $"({pmValue}) " + airQualityLevel;
+            return $"({pmValue.ToString("n2")}) " + airQualityLevel;
         }
 
         public void Stop()
