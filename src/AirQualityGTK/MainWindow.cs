@@ -3,6 +3,7 @@ using System.Linq;
 using Gtk;
 using OxyPlot;
 using OxyPlot.GtkSharp;
+using OxyPlot.Legends;
 using OxyPlot.Series;
 using UI = Gtk.Builder.ObjectAttribute;
 
@@ -55,6 +56,11 @@ namespace AirQualityGTK
             modelPM.Series.Add(PM1Series);
             modelPM.Series.Add(PM25Series);
             modelPM.Series.Add(PM10Series);
+            modelPM.Legends.Add(new Legend()
+             {
+                 LegendTitle = "Particle Matter",
+                 LegendPosition = LegendPosition.RightBottom,
+             });
             //new FunctionSeries(Math.Cos, 0, 10, 0.1, "cos(x)")
             plotPM.Model = modelPM;
             plotPM.Show();
@@ -68,6 +74,11 @@ namespace AirQualityGTK
             ParticleSeries05.Points.Add(new DataPoint(0, 0));
             
             var modelParticle = new PlotModel { Title = "Number Particle diameter of 0.3/0.5 um per 0.1L" };
+            modelParticle.Legends.Add(new Legend()
+            {
+                LegendTitle = "Number Particle",
+                LegendPosition = LegendPosition.RightBottom,
+            });
             modelParticle.Series.Add(ParticleSeries03);
             modelParticle.Series.Add(ParticleSeries05);
             //new FunctionSeries(Math.Cos, 0, 10, 0.1, "cos(x)")
