@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Gtk;
 using OxyPlot;
 using OxyPlot.GtkSharp;
@@ -12,38 +13,88 @@ namespace AirQualityGTK
         SensorAQ sensor;
 
         [UI] private Label _label1 = null;
-        [UI] private Button _button1 = null;
         [UI] private Button _btnstart = null;
         [UI] private Button _btnstop = null;
         [UI] private Box _box1 = null;
 
-        private int _counter;
-
+        LineSeries PM1Series, PM25Series, PM10Series, ParticleSeries03, ParticleSeries05;
+        int count = 0;
         public MainWindow() : this(new Builder("MainWindow.glade")) { }
 
         private MainWindow(Builder builder) : base(builder.GetRawOwnedObject("MainWindow"))
         {
             builder.Autoconnect(this);
             sensor = new SensorAQ();
-            sensor.DataReceived += (a, e) => {
-                _label1.Text = $"Data: {e.Data.ToString()}";
-            };
+           
             DeleteEvent += Window_DeleteEvent;
-            _button1.Clicked += Button1_Clicked;
             _btnstart.Clicked += (a,b)=>{
                 sensor.Start();
             };
             _btnstop.Clicked += (a, b) => {
                 sensor.Stop();
             };
-            var plotView = new PlotView();
+            var plotPM = new PlotView();
+            var plotParticle = new PlotView();
           
-            _box1.PackStart(plotView,true,true,0);
+            _box1.PackStart(plotPM,true,true,0);
+            _box1.PackStart(plotParticle, true,true,0);
 
-            var myModel = new PlotModel { Title = "Example 1" };
-            myModel.Series.Add(new FunctionSeries(Math.Cos, 0, 10, 0.1, "cos(x)"));
-            plotView.Model = myModel;
-            plotView.Show();
+            PM1Series = new LineSeries();
+            PM1Series.Title = "PM1";
+            PM1Series.Points.Add(new DataPoint(0, 0));
+
+            PM25Series = new LineSeries();
+            PM25Series.Title = "PM25";
+            PM25Series.Points.Add(new DataPoint(0, 0));
+
+            PM10Series = new LineSeries();
+            PM10Series.Title = "PM10";
+            PM10Series.Points.Add(new DataPoint(0, 0));
+
+            var modelPM = new PlotModel { Title = "Concentration PM 1.0, 2.5, 10" };
+            modelPM.Series.Add(PM1Series);
+            modelPM.Series.Add(PM25Series);
+            modelPM.Series.Add(PM10Series);
+            //new FunctionSeries(Math.Cos, 0, 10, 0.1, "cos(x)")
+            plotPM.Model = modelPM;
+            plotPM.Show();
+
+            ParticleSeries03 = new LineSeries();
+            ParticleSeries03.Title = "Particle 0.3";
+            ParticleSeries03.Points.Add(new DataPoint(0, 0));
+
+            ParticleSeries05 = new LineSeries();
+            ParticleSeries05.Title = "Particle 0.5";
+            ParticleSeries05.Points.Add(new DataPoint(0, 0));
+
+            var modelParticle = new PlotModel { Title = "Number Particle diameter of 0.3/0.5 um per 0.1L" };
+            modelParticle.Series.Add(ParticleSeries03);
+            modelParticle.Series.Add(ParticleSeries05);
+            //new FunctionSeries(Math.Cos, 0, 10, 0.1, "cos(x)")
+            plotParticle.Model = modelParticle;
+            plotParticle.Show();
+
+            sensor.DataReceived += (a, e) => {
+                //_label1.Text = $"Data: {e.Data.ToString()}";
+                var datas = sensor.GetData().TakeLast(10);
+
+                PM1Series.Points.Clear();
+                PM25Series.Points.Clear();
+                PM10Series.Points.Clear();
+                ParticleSeries03.Points.Clear();
+                ParticleSeries05.Points.Clear();
+                count = 0;
+                foreach(var item in datas)
+                {
+                    PM1Series.Points.Add(new DataPoint(count,item.PM1));
+                    PM25Series.Points.Add(new DataPoint(count, item.PM25));
+                    PM10Series.Points.Add(new DataPoint(count, item.PM10));
+                    ParticleSeries03.Points.Add(new DataPoint(count, item.ParticleNum03));
+                    ParticleSeries05.Points.Add(new DataPoint(count, item.ParticleNum05));
+                    count++;
+                }
+                _label1.Text = $"Last Update: {DateTime.Now}";
+            };
         }
 
         protected void OnDeleteEvent(object sender, DeleteEventArgs a)
@@ -57,11 +108,6 @@ namespace AirQualityGTK
             Application.Quit();
         }
 
-        private void Button1_Clicked(object sender, EventArgs a)
-        {
-            _counter++;
-            
-            _label1.Text = "Hello World! This button has been clicked " + _counter + " time(s).";
-        }
+      
     }
 }
