@@ -66,7 +66,7 @@ namespace AirQualityGTK
             ParticleSeries05 = new LineSeries();
             ParticleSeries05.Title = "Particle 0.5";
             ParticleSeries05.Points.Add(new DataPoint(0, 0));
-
+            
             var modelParticle = new PlotModel { Title = "Number Particle diameter of 0.3/0.5 um per 0.1L" };
             modelParticle.Series.Add(ParticleSeries03);
             modelParticle.Series.Add(ParticleSeries05);
@@ -94,6 +94,7 @@ namespace AirQualityGTK
                     count++;
                 }
                 _label1.Text = $"Last Update: {DateTime.Now}";
+                
             };
         }
 

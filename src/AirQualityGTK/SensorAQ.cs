@@ -108,6 +108,7 @@ namespace AirQualityGTK
 
                 sensorData.MeasureTime = DateTime.Now;
                 TimeSeriesData.Add(sensorData);
+                Console.WriteLine($"Time Series Count: {TimeSeriesData.Count}");
                 if (TimeSeriesData.Count > TimeFrame)
                 {
                     TimeSeriesData.RemoveAt(0);
