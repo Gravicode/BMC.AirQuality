@@ -51,6 +51,12 @@
     <Reference Include="GHIElectronics.TinyCLR.Devices.I2c, Version=2.2.0.4000, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GHIElectronics.TinyCLR.Devices.I2c.2.2.0\lib\net452\GHIElectronics.TinyCLR.Devices.I2c.dll</HintPath>
     </Reference>
+    <Reference Include="GHIElectronics.TinyCLR.Drivers.BasicGraphics, Version=2.2.0.4000, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GHIElectronics.TinyCLR.Drivers.BasicGraphics.2.2.0\lib\net452\GHIElectronics.TinyCLR.Drivers.BasicGraphics.dll</HintPath>
+    </Reference>
+    <Reference Include="GHIElectronics.TinyCLR.Drivers.SolomonSystech.SSD1306, Version=2.2.0.4000, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GHIElectronics.TinyCLR.Drivers.SolomonSystech.SSD1306.2.2.0\lib\net452\GHIElectronics.TinyCLR.Drivers.SolomonSystech.SSD1306.dll</HintPath>
+    </Reference>
     <Reference Include="GHIElectronics.TinyCLR.Native, Version=2.2.0.4000, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GHIElectronics.TinyCLR.Native.2.2.0\lib\net452\GHIElectronics.TinyCLR.Native.dll</HintPath>
     </Reference>
