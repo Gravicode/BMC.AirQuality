@@ -77,24 +77,29 @@ namespace AirQualityGTK
             sensor.DataReceived += (a, e) => {
                 //_label1.Text = $"Data: {e.Data.ToString()}";
                 var datas = sensor.GetData().TakeLast(10);
-
-                PM1Series.Points.Clear();
-                PM25Series.Points.Clear();
-                PM10Series.Points.Clear();
-                ParticleSeries03.Points.Clear();
-                ParticleSeries05.Points.Clear();
-                count = 0;
-                foreach(var item in datas)
+                Gtk.Application.Invoke(delegate
                 {
-                    PM1Series.Points.Add(new DataPoint(count,item.PM1));
-                    PM25Series.Points.Add(new DataPoint(count, item.PM25));
-                    PM10Series.Points.Add(new DataPoint(count, item.PM10));
-                    ParticleSeries03.Points.Add(new DataPoint(count, item.ParticleNum03));
-                    ParticleSeries05.Points.Add(new DataPoint(count, item.ParticleNum05));
-                    count++;
-                }
-                _label1.Text = $"Last Update: {DateTime.Now}";
-                
+                    PM1Series.Points.Clear();
+                    PM25Series.Points.Clear();
+                    PM10Series.Points.Clear();
+                    ParticleSeries03.Points.Clear();
+                    ParticleSeries05.Points.Clear();
+                    count = 0;
+                    foreach (var item in datas)
+                    {
+                        PM1Series.Points.Add(new DataPoint(count, item.PM1));
+                        PM25Series.Points.Add(new DataPoint(count, item.PM25));
+                        PM10Series.Points.Add(new DataPoint(count, item.PM10));
+                        ParticleSeries03.Points.Add(new DataPoint(count, item.ParticleNum03));
+                        ParticleSeries05.Points.Add(new DataPoint(count, item.ParticleNum05));
+                        count++;
+                    }
+                    _label1.Text = $"Last Update: {DateTime.Now}";
+                    modelParticle.Series.Clear();
+                    modelParticle.Series.Add(ParticleSeries03);
+                    modelParticle.Series.Add(ParticleSeries05);
+                    plotParticle.Model = modelParticle;
+                });
             };
         }
 
