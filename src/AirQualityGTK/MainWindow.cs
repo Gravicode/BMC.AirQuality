@@ -94,11 +94,12 @@ namespace AirQualityGTK
                         ParticleSeries05.Points.Add(new DataPoint(count, item.ParticleNum05));
                         count++;
                     }
-                    _label1.Text = $"Last Update: {DateTime.Now}";
+                    _label1.Text = $"Update: {DateTime.Now}, AQ: {sensor.MeasureAirQuality()}";
                     //modelParticle.Series.Clear();
                     //modelParticle.Series.Add(ParticleSeries03);
                     //modelParticle.Series.Add(ParticleSeries05);
                     //plotParticle.Model = modelParticle;
+                    plotPM.InvalidatePlot(true);
                     plotParticle.InvalidatePlot(true);
                 });
             };

@@ -1,5 +1,6 @@
 ﻿using DFRobot.AirQuality;
 using Iot.Device.Bh1745;
+using Iot.Device.Ht1632;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +56,53 @@ namespace AirQualityGTK
                 th1.Start();
                 IsRunning = true;
             }
+        }
+        public enum PMTypes
+        {
+            PM1,
+            PM2_5,
+            PM10
+        }
+        public string MeasureAirQuality(PMTypes PMType = PMTypes.PM2_5)
+        {
+            if (TimeSeriesData.Count <= 0)
+                return "No Data to Measure";
+            double pmValue = PMType switch
+            {
+                PMTypes.PM1  => TimeSeriesData.Average(x => x.PM1),
+                PMTypes.PM2_5 => TimeSeriesData.Average(x => x.PM25),
+                PMTypes.PM10 => TimeSeriesData.Average(x => x.PM10),
+                _ => throw new ArgumentException("Invalid enum value for command", nameof(PMType)),
+            };
+            
+            string airQualityLevel = "";
+
+            if (pmValue <= 12.0)
+            {
+                airQualityLevel = "Good";
+            }
+            else if (pmValue <= 35.4)
+            {
+                airQualityLevel = "Moderate";
+            }
+            else if (pmValue <= 55.4)
+            {
+                airQualityLevel = "Unhealthy for Sensitive Groups";
+            }
+            else if (pmValue <= 150.4)
+            {
+                airQualityLevel = "Unhealthy";
+            }
+            else if (pmValue <= 250.4)
+            {
+                airQualityLevel = "Very Unhealthy";
+            }
+            else
+            {
+                airQualityLevel = "Hazardous";
+            }
+
+            return airQualityLevel;
         }
 
         public void Stop()
