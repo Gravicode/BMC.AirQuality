@@ -45,7 +45,7 @@ namespace AirQualityGTK
             PM1Series.Points.Add(new DataPoint(0, 0));
 
             PM25Series = new LineSeries() { MarkerType = MarkerType.Circle };
-            PM25Series.Title = "PM25";
+            PM25Series.Title = "PM2.5";
             PM25Series.Points.Add(new DataPoint(0, 0));
 
             PM10Series = new LineSeries() { MarkerType = MarkerType.Circle };
