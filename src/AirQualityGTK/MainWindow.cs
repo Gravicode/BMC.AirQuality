@@ -39,15 +39,15 @@ namespace AirQualityGTK
             _box1.PackStart(plotPM,true,true,0);
             _box1.PackStart(plotParticle, true,true,0);
 
-            PM1Series = new LineSeries();
+            PM1Series = new LineSeries() { MarkerType = MarkerType.Circle, InterpolationAlgorithm = new CanonicalSpline(10) };
             PM1Series.Title = "PM1";
             PM1Series.Points.Add(new DataPoint(0, 0));
 
-            PM25Series = new LineSeries();
+            PM25Series = new LineSeries() { MarkerType = MarkerType.Circle, InterpolationAlgorithm = new CanonicalSpline(10) };
             PM25Series.Title = "PM25";
             PM25Series.Points.Add(new DataPoint(0, 0));
 
-            PM10Series = new LineSeries();
+            PM10Series = new LineSeries() { MarkerType = MarkerType.Circle, InterpolationAlgorithm = new CanonicalSpline(10) };
             PM10Series.Title = "PM10";
             PM10Series.Points.Add(new DataPoint(0, 0));
 
@@ -59,11 +59,11 @@ namespace AirQualityGTK
             plotPM.Model = modelPM;
             plotPM.Show();
 
-            ParticleSeries03 = new LineSeries();
+            ParticleSeries03 = new LineSeries() { MarkerType = MarkerType.Diamond, InterpolationAlgorithm = new CanonicalSpline(10) };
             ParticleSeries03.Title = "Particle 0.3";
             ParticleSeries03.Points.Add(new DataPoint(0, 0));
 
-            ParticleSeries05 = new LineSeries();
+            ParticleSeries05 = new LineSeries() { MarkerType = MarkerType.Diamond, InterpolationAlgorithm = new CanonicalSpline(10) };
             ParticleSeries05.Title = "Particle 0.5";
             ParticleSeries05.Points.Add(new DataPoint(0, 0));
             
@@ -73,7 +73,7 @@ namespace AirQualityGTK
             //new FunctionSeries(Math.Cos, 0, 10, 0.1, "cos(x)")
             plotParticle.Model = modelParticle;
             plotParticle.Show();
-
+            
             sensor.DataReceived += (a, e) => {
                 //_label1.Text = $"Data: {e.Data.ToString()}";
                 var datas = sensor.GetData().TakeLast(10);

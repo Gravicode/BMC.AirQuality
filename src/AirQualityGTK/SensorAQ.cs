@@ -22,7 +22,7 @@ namespace AirQualityGTK
         private static AirQualitySensor airqualitysensor;
         public static bool IsRunning { get; set; } = false;
         public static ushort Version { get; set; }
-        static AirSensorData sensorData { set; get; } = new();
+        AirSensorData sensorData { set; get; } 
         CancellationTokenSource source;
         Thread th1;
         public SensorAQ()
@@ -141,6 +141,7 @@ namespace AirQualityGTK
                  * @n     PARTICLENUM_10_UM_EVERY0_1L_AIR
                  * @n     PARTICLENUM_GAIN_VERSION
                  */
+                sensorData = new();
                 Console.WriteLine($"-- Measure date: {DateTime.Now.ToString("dd/MMM/yyyy HH:mm:ss")} --");
                 sensorData.ParticleNum03 = airqualitysensor.GainParticlenumEvery0_1L(AirQualitySensor.PARTICLENUM_0_3_UM_EVERY0_1L_AIR);
                 Console.WriteLine("The number of particles with a diameter of 0.3um per 0.1 in lift-off is: " + sensorData.ParticleNum03);
@@ -153,7 +154,7 @@ namespace AirQualityGTK
                 Console.WriteLine("PM1.0 concentration: " + sensorData.PM1.ToString("F2") + " mg/m³");
                 Console.WriteLine("PM2.5 concentration: " + sensorData.PM25.ToString("F2") + " mg/m³");
                 Console.WriteLine("PM10 concentration: " + sensorData.PM10.ToString("F2") + " mg/m³");
-
+              
                 sensorData.MeasureTime = DateTime.Now;
                 TimeSeriesData.Add(sensorData);
                 Console.WriteLine($"Time Series Count: {TimeSeriesData.Count}");
