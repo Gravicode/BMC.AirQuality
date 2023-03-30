@@ -43,6 +43,7 @@ namespace AirQualityGTK
             var myModel = new PlotModel { Title = "Example 1" };
             myModel.Series.Add(new FunctionSeries(Math.Cos, 0, 10, 0.1, "cos(x)"));
             plotView.Model = myModel;
+            plotView.Show();
         }
 
         protected void OnDeleteEvent(object sender, DeleteEventArgs a)
